@@ -6,6 +6,8 @@ public class GamblingSimulator {
     static int startGame;
     static int perDayMoney;
     static int perGameMoney;
+    static int betOption;
+
 
     //Method to start the game on entering number 1
     public static void startGame() {
@@ -22,6 +24,26 @@ public class GamblingSimulator {
         System.out.println("You have $" + perGameMoney + " for per game");
     }
 
+    //Player chooses one number between 1 to 6 to bet on it
+    public static void betOption() {
+        System.out.println("Enter number you want to bet on between 1 to 6");
+        betOption = scanner.nextInt();
+        System.out.println(betOption);
+    }
+
+    //Checks if the ransom number and the betOption number is same or different, if same displays u won else display u lost
+    public static void game() {
+        int betamount = perGameMoney;
+        int randomnumber = (int) ((Math.random() * 5) + 1);
+        System.out.println("Random number appeared is:" + randomnumber);
+        System.out.println("You have bet $" + betamount + "for this game");
+        if (betOption == randomnumber) {
+            System.out.println("Congratulations...you won " + betamount);
+        } else {
+            System.out.println("Sorry...you lost " + betamount);
+        }
+    }
+
     //Main method to call all the method and printing welcome message and entering player's name
     public static void main(String[] args) {
         System.out.println("Welcome to gambling game");
@@ -31,5 +53,7 @@ public class GamblingSimulator {
         System.out.println(name);
         money();
         startGame();
+        betOption();
+        game();
     }
 }
