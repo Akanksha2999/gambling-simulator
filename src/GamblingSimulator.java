@@ -10,7 +10,9 @@ public class GamblingSimulator {
     static int perGameMoney;
     static int betOption;
     static int money;
-    static int stopGame;
+    static int wins = 0;
+    static int lose = 0;
+
 
     //Method to start the game on entering number 1
     public static void startGame() {
@@ -36,35 +38,48 @@ public class GamblingSimulator {
 
     //Checks if the ransom number and the betOption number is same or different, if same displays u won else display u lost until the per day money is greater than 50
     public static void game() {
-        int betamount = perGameMoney;
-        int randomnumber = (int) ((Math.random() * 5) + 1);
-        System.out.println("Random number appeared is:" + randomnumber);
-        System.out.println("You have bet $" + betamount + "for this game");
-        while (perDayMoney > 50) {
-            if (betOption == randomnumber) {
-                System.out.println("Congratulations...you won " + betamount);
-                perDayMoney = perDayMoney + betamount;
-                System.out.println("New per day money" + perDayMoney);
-                betOption();
-                game();
+        for (int day = 1; day <= 20; day++) {
+            while (perDayMoney > 50 && perDayMoney < 150) {
+                int betamount = perGameMoney;
+                int randomnumber = (int) ((Math.random() * 5) + 1);
+                System.out.println("Random number appeared is:" + randomnumber);
+                if (betOption == randomnumber) {
+                    System.out.println("Congratulations...you won " + betamount);
+                    perDayMoney++;
+                    System.out.println(perDayMoney);
+                    betOption();
+                    System.out.println("New per day money" + perDayMoney);
+                } else {
+                    System.out.println("sorry...you lost " + betamount);
+                    perDayMoney--;
+                    System.out.println(perDayMoney);
+                    betOption();
+                }
+
+            }
+            if (perDayMoney == 50) {
+                lose++;
+                System.out.println("Day" + day + "Lost");
             } else {
-                System.out.println("sorry...you lost " + betamount);
-                perDayMoney = perDayMoney - betamount;
-                System.out.println("New per day money" + perDayMoney);
-                betOption();
-                game();
+                wins++;
+                System.out.println("Day" + day + "Won");
             }
         }
     }
 
-    //stopGame method to resign from the game if the per day amount remaining is 50 or 150
-    public static void stopGame() {
-        if (perDayMoney <= 50 | perDayMoney == 150) {
+    //totalAmount method checks for the winning and losing amount after 20 days
+    public static void totalAmount() {
 
-            System.out.println("Resign from the game");
+        int finalAmount = wins * 50 - lose * 50;
+        System.out.println(+finalAmount);
+        if (finalAmount > 1000) {
+            System.out.println("After 20 days player won:" + finalAmount);
+        } else if (finalAmount < 1001) {
+            System.out.println("After 20 days Gambler lost:" + finalAmount);
+        } else {
+            System.out.println("No profit or loss");
         }
     }
-
 
     //Main method to call all the method and printing welcome message and entering player's name
     public static void main(String[] args) {
@@ -77,6 +92,6 @@ public class GamblingSimulator {
         startGame();
         betOption();
         game();
-        stopGame();
+        totalAmount();
     }
 }
