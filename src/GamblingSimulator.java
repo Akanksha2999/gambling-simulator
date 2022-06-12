@@ -49,5 +49,12 @@ public class GamblingSimulator {
         //Printing the total monthly winning and loosing amount
         System.out.println("Total monthly winning amount is :" + maxMonthly);
         System.out.println("Total monthly loosing amount is :" + minMonthly);
+
+        //Prints to continue gambling for next month if total winning amount of month is greater than loosing amount
+        if (maxMonthly > minMonthly) {
+            System.out.println("Continue gambling for next month");
+        } else {
+            System.out.println("Stop gambling");
+        }
     }
 }
